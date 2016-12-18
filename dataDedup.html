@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>DeDupe</title>
+      <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+      <link rel="stylesheet" href="assets/style.css">
+      <style>
+      * { font: 12px sans-serif; }
+
+      html, body, textarea {
+          height: 100%;
+          width: 100%;
+          margin: 0; padding: 0;
+          font-family: sans-serif;
+          //overflow: hidden;
+          border: 0
+      }
+
+      textarea {
+        padding: 5px;
+      }
+
+      table, th, td  {
+        border-collapse: collapse;
+        border: 1px solid gray;
+      }
+
+      td {
+        max-width: 400px;
+        overflow: wrap;
+      }
+
+      pre {
+        white-space: pre-wrap;       /* Since CSS 2.1 */
+        white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+        white-space: -pre-wrap;      /* Opera 4-6 */
+        white-space: -o-pre-wrap;    /* Opera 7 */
+        word-wrap: break-word;       /* Internet Explorer 5.5+ */
+      }
+
+      .btn {
+        background-color: rgba(255,255,255,0.8);
+        outline: 1px solid rgba(0,0,0,0.3);
+        min-width: 60px;
+        padding: 2px 4px;
+        margin: 2px;
+        display: inline-block;
+      }
+
+    #btn_group {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        // margin: 0px auto;
+        // width: 100%;
+    }
+      </style>
+  </head>
+  <body>
+
+    <textarea id="entry" placeholder="Paste data here."></textarea>
+
+    <div id="btn_group">
+        <button class="btn" id="btn-sort">Sort</button>
+        <button class="btn" id="btn-dedupe">Remove duplicates</button>
+    </div>
+
+  </body>
+
+  <script>
+
+  d3.select('#btn-sort')
+    .on('click', function(){
+      let inArr = document.getElementById("entry").value.split("\n");
+
+      inArr = inArr.map((t) => {
+        return t.toLowerCase().trim();
+      });
+
+      let dedupeArr = [...new Set(inArr)];
+      dedupeArr.sort();
+      document.getElementById("entry").value = dedupeArr.join("\n");
+      console.log(inArr);
+    });
+
+  </script>
+<html>
